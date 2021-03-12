@@ -25,7 +25,8 @@ pipeline {
             steps {
               sh '''
                   sudo python3 -m venv venv
-                  sudo source venv/bin/activate
+		  sudo su
+                  source venv/bin/activate
                   sudo python3 -m pip install -r requirements.txt
               '''
             }
