@@ -15,7 +15,7 @@ pipeline {
         stage ('Initialize') {
             steps {
                 sh '''
-                    sudo apt install python3-pip -y
+                    sudo apt install python3-pip python3-venv -y
                     pip3 -V                   
                 '''
             }
