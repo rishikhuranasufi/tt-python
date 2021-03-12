@@ -28,7 +28,7 @@ pipeline {
                   python3 -m venv venv
                   . ./venv/bin/activate
                   sudo python3 -m pip install -r requirements.txt
-                  sudo python3 main.py
+                  nohup python3 main.py > ~/flasklogs.log 2>&1 &
               '''
             }
 	    }
