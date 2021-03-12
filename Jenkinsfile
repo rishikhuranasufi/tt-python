@@ -16,19 +16,19 @@ pipeline {
         stage ('Build') {
             steps {                
                 withCredentials([sshUserPrivateKey(credentialsId: 'python', keyFileVariable: 'privatefile', passphraseVariable: '', usernameVariable: 'username')]) {             
-                        sh 'scp -i ${privatefile} ./* ubuntu@3.12.104.242:~/'
+                        sh 'scp -i ${privatefile} ./* ubuntu@13.59.155.51:~/'
 			sh ' pwd'
 			sh ' ls -lart'
-			sh 'ssh -i ${privatefile} ubuntu@3.12.104.242 bash build.sh'
+			sh 'ssh -i ${privatefile} ubuntu@13.59.155.51 bash build.sh'
 		 }
                }
 	    }
 	 stage ('Run') {
             steps {                
                 withCredentials([sshUserPrivateKey(credentialsId: 'python', keyFileVariable: 'privatefile', passphraseVariable: '', usernameVariable: 'username')]) {             
-                        sh 'ssh -i ${privatefile} ubuntu@3.12.104.242 bash start.sh'
-			sh ' pwd'
+                        sh ' pwd'
 			sh ' ls -lart'
+			sh 'ssh -i ${privatefile} ubuntu@13.59.155.51 bash start.sh'
 		 }
                }
 	    }
