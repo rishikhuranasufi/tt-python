@@ -16,10 +16,10 @@ pipeline {
         stage ('Build') {
             steps {                
                 withCredentials([sshUserPrivateKey(credentialsId: 'python', keyFileVariable: 'privatefile', passphraseVariable: '', usernameVariable: 'username')]) {             
-                        sh 'scp -i ${privatefile} ./* ubuntu@13.59.155.51:~/'
+                        sh 'scp -o StrictHostKeyChecking=no -i ${privatefile} ./* ubuntu@13.59.155.51:~/'
 			sh ' pwd'
 			sh ' ls -lart'
-			sh 'ssh -i ${privatefile} ubuntu@13.59.155.51 bash build.sh'
+			sh 'ssh -o StrictHostKeyChecking=no -i ${privatefile} ubuntu@13.59.155.51 bash build.sh'
 		 }
                }
 	    }
@@ -28,7 +28,7 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'python', keyFileVariable: 'privatefile', passphraseVariable: '', usernameVariable: 'username')]) {             
                         sh ' pwd'
 			sh ' ls -lart'
-			sh 'ssh -i ${privatefile} ubuntu@13.59.155.51 bash start.sh'
+			sh 'ssh -o StrictHostKeyChecking=no -i ${privatefile} ubuntu@13.59.155.51 bash start.sh'
 		 }
                }
 	    }
