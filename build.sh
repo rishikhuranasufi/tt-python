@@ -7,4 +7,4 @@ python3 -m venv venv
 . ./venv/bin/activate
 python3 -m pip install -r requirements.txt
 sudo apt install python-pytest -y
-pytest hello_world_test.py
+#pytest hello_world_test.py
