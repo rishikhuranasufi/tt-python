@@ -12,25 +12,25 @@ pipeline {
 		git credentialsId: 'hp', url: 'git@github.com:rishikhuranasufi/tt-python.git'
             }
         }
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    sudo apt install python3-pip python3-venv -y
-                    pip3 -V                   
-                '''
-            }
-        }
-
+    
         stage ('Build') {
-            steps {
-              sh '''
-	          ls -lrt
-                  python3 -m venv venv
-                  . ./venv/bin/activate
-                  sudo python3 -m pip install -r requirements.txt
-                  nohup python3 main.py > ~/flasklogs.log 2>&1 &
-              '''
-            }
+            steps {                
+                withCredentials([sshUserPrivateKey(credentialsId: 'python', keyFileVariable: 'privatefile', passphraseVariable: '', usernameVariable: 'username')]) {             
+                        sh 'scp -i ${privatefile} ./* ubuntu@3.12.104.242:~/'
+			sh ' pwd'
+			sh ' ls -lart'
+			sh 'ssh -i ${privatefile} ubuntu@3.12.104.242 bash build.sh'
+		 }
+               }
+	    }
+	 stage ('Run') {
+            steps {                
+                withCredentials([sshUserPrivateKey(credentialsId: 'python', keyFileVariable: 'privatefile', passphraseVariable: '', usernameVariable: 'username')]) {             
+                        sh 'ssh -i ${privatefile} ubuntu@3.12.104.242 bash start.sh'
+			sh ' pwd'
+			sh ' ls -lart'
+		 }
+               }
 	    }
         }
     }    
