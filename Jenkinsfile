@@ -24,8 +24,8 @@ pipeline {
         stage ('Build') {
             steps {
               sh '''
-                  sudo python3 -m venv venv
-		  sudo su
+	          ls -lrt
+                  python3 -m venv venv
                   source venv/bin/activate
                   sudo python3 -m pip install -r requirements.txt
               '''
