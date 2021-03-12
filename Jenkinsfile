@@ -28,7 +28,8 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: 'python', keyFileVariable: 'privatefile', passphraseVariable: '', usernameVariable: 'username')]) {             
                         sh ' pwd'
 			sh ' ls -lart'
-			sh 'ssh -o StrictHostKeyChecking=no -i ${privatefile} ubuntu@13.59.155.51 bash start.sh'
+			sh 'ssh -o StrictHostKeyChecking=no -i ${privatefile} ubuntu@13.59.155.51 bash start.sh'  
+			sh 'ssh -o StrictHostKeyChecking=no -i ${privatefile} ubuntu@13.59.155.51 nohup python3 main.py > ~/flasklogs.log 2>&1 &'
 		 }
                }
 	    }
